@@ -1,0 +1,715 @@
+<?php
+session_start();
+if (@$_SESSION['user_id']==false) {
+		// user unauth
+		$loc = "../../index.php";
+		header('Location:'.$loc);
+		die();
+	}
+//echo $_SESSION['assignment_id'];
+
+	if($_POST)
+{
+$_SESSION["assignment_id_s"] =$_POST['assignment_id3'];
+$_SESSION["subject_name_s"] =$_POST['subject_name3'];
+$_SESSION["assignment_topic_s"] =$_POST['assignment_topic3'];
+$_SESSION["submission_date_s"] =$_POST['submission_date3'];
+$_SESSION["issue_date_s"] =$_POST['issue_date3'];
+$_SESSION["assignment_type_s"] =$_POST['assignment_type3'];
+$_SESSION["max_marks"] =$_POST['max_marks'];
+$_SESSION["passing_marks"] =$_POST['passing_marks'];
+
+
+
+}
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>ASSIGNMENT CREATION &amp; </title>
+<link rel="stylesheet" href="../../css/home.css" />
+ <link rel="stylesheet" href="../../css/allinterface.css" type="text/css" /> 
+	  
+	    <link rel="stylesheet"  href="../../css/tabpane.css" type="text/css" /> 
+		<link rel="stylesheet" href="../../css/jquery-ui.css" />
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script src="../../js/jquery-latest.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/tabs.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/tabstyles.css" />
+  		<script src="../../js/modernizr.custom.js"></script>
+		<script src="../../lib/sweet-alert.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="../../lib/sweet-alert.css">
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="../../css/jquery-ui.css">
+<link rel="stylesheet" href="../../css/tooltip.css">
+
+<script  src="../../jquery-ui-1.10.4.custom/js/jquery-1.10.2.js"></script>
+<script src="../../jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.js"></script>
+<script src="../../js/tooltip.js"></script>
+ <script src="script_mcq_creation.js"></script>
+		<script src="script_assignmentcreation.js"></script>
+		<script type="text/javascript" src="/ASES0/faculty/assigmentcreation/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+          <!-- <script src="script_image_descriptive.js"></script>       -->
+		   <!--<script src="script_image_mcq.js"></script> -->    
+
+		   
+<style type="text/css">
+.auto-style1 {
+	text-align: center;
+	border: 2px solid #999999;
+	border-style: ridge;
+}
+.imgs:hover{
+cursor:pointer;
+}
+.imgs:active{
+padding:2px 2px;
+padding-top:-2px;
+cursor:pointer;
+background-color:#C0C0C0;
+
+}
+</style>
+<script type="text/javascript">
+tinyMCE.init({
+		// General options
+		mode : "textareas",
+		theme : "advanced",
+		plugins : "autolink,lists,pagebreak,openmanager,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks,|,openmanager",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+		//FILE UPLOAD MODS
+		file_browser_callback: "openmanager",
+		open_manager_upload_path: 'uploads/',
+
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
+
+		// Drop lists for link/image/media/template dialogs
+		template_external_list_url : "lists/template_list.js",
+		external_link_list_url : "lists/link_list.js",
+		external_image_list_url : "lists/image_list.js",
+		media_external_list_url : "lists/media_list.js",
+
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
+
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
+</script>
+<!--<script>
+function populateId()
+    {
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() 
+        {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+          {
+            document.getElementById("assignment_id").innerHTML=xmlhttp.responseText;
+          }
+        }
+      
+      xmlhttp.open("POST","StoreId.php",true);
+      
+      xmlhttp.send();
+    }
+
+</script>-->
+<script>
+if(!String.prototype.trim){  
+  String.prototype.trim = function(){  
+    return this.replace(/^\s+|\s+$/g,'');  
+  };  
+}
+
+ function myFunction(elem)
+{  
+  if(elem.value==1)
+  {  if (elem.checked)
+    {
+		$('#checkbox_a1').val(1);
+		
+    }
+    else
+    {
+        $('#checkbox_a1').val(0);
+    }
+  }
+  if(elem.value==2)
+  {  if (elem.checked)
+    {
+		$('#checkbox_b1').val(1);
+		
+    }
+    else
+    {
+        $('#checkbox_b1').val(0);
+    }
+  }
+  if(elem.value==3)
+  {  if (elem.checked)
+    {
+		$('#checkbox_c1').val(1);
+		
+    }
+    else
+    {
+        $('#checkbox_c1').val(0);
+    }
+  }
+  if(elem.value==4)
+  {  if (elem.checked)
+    {
+		$('#checkbox_d1').val(1);
+		
+    }
+    else
+    {
+        $('#checkbox_d1').val(0);
+    }
+  }
+  if(elem.value==5)
+  {  if (elem.checked)
+    {
+		$('#is_true_false1').val(1);
+    }
+    else
+    {
+        $('#is_true_false1').val(0);
+    }
+  }
+}
+</script>
+
+<script>
+/*function desc()
+{
+	$("#assignment_type").val("D");
+
+}
+function multi()
+{
+	$("#assignment_type").val("M");
+
+}*/
+
+
+
+function addsub()
+{
+$(subpartadd).show();
+}
+function subremove()
+{
+$(subpartadd).hide();
+}
+function true_false(checkbox)
+{ 
+if(checkbox.checked == true)
+{
+$(tabletrue).show();
+$(tablemcq).hide();
+}
+else{
+$(tablemcq).show();
+$(tabletrue).hide();
+}
+}
+
+</script>
+<script>
+$.ajax({
+        url:"counter_ques.php",
+        type:"POST",
+        data:{},
+        success:function(data){
+          data++;
+            $('#ques_no').val(data);
+			 
+            
+        }
+       });
+	 
+</script>
+<script>
+
+
+
+function subpartindi()
+{
+var diff=$("#total_indi").val()-$("#baseq_indi").val();
+var ans=diff/$("#basechoice_indi").val();
+$("#basechoicem_indi").val(ans);
+}
+
+function access1value()
+{
+var question_no = $("#question_no").val();
+var assig_id= $("#assignment_id").val();
+var datano='no='+question_no+'&assig_id='+assig_id;
+$.ajax({
+type: "POST",
+url: "findno1.php",
+data:datano,
+cache: false,
+success: function(data){
+
+var result=data.split('##');
+ var ques=result[0];
+ var valid=result[1];
+//alert(data);
+ matchshow(ques,valid);
+
+   
+}
+
+
+});
+}
+function matchshow(data,valid)
+{
+var question_no = $("#question_no").val();
+if(valid==1)
+{
+
+var question_no = $("#question_no").val();
+var assig_id= $("#assignment_id").val();
+var datano='no='+question_no+'&assig_id='+assig_id;
+show(datano);
+
+}
+
+else
+{
+$(tinymce.get('question_name').getBody()).html("");
+//tinyMCE.get('#question_name').setContent(data);
+//$("#question_name").val("");
+}
+
+}
+
+// for show
+function show(dataString)
+{
+$.ajax({
+type: "POST",
+url: "show_question1.php",
+data: dataString,
+cache: false,
+success: function(result){
+showform(result);
+
+
+}
+
+});
+
+}
+
+// to print in
+
+function showform(result)
+{
+
+var seprate=result.split('##');
+i=0;
+while(i<seprate.length)
+{
+var x=seprate[i].toString();
+var x=$.trim(x);
+$("#question_no").val(x);
+i++;
+var x=seprate[i].toString();
+$(tinymce.get('question_name').getBody()).html(x);
+//$("#question_name").val(x);
+i++;
+var x=seprate[i].toString();
+$("#max_marks2").val(x);
+i++;
+}
+
+}
+
+function getRadioCheckedValue(radio_name)
+{
+
+
+   if (radio_name.checked) {
+   
+   if(radio_name.value=="indi")
+{  alert("indi");
+$(indi).show();
+$(choice).hide();
+}
+
+ if(radio_name.value=="choice")
+{  alert("choice");
+$(choice).show();
+$(indi).hide();
+}
+
+}
+
+  
+}
+
+
+
+
+function call2()
+	   {
+        access1value();	   
+	   true_false(document.getElementById('Checkbox1'));
+	 
+		}
+
+</script>
+ </head>
+
+<body style="background-color: #C0C0C0" onload="call2();" >
+	<div id="container2">
+<form method="post" enctype="multipart/form-data">
+<h2 align="center" style="font-style: normal; font-stretch: semi-expanded; font-size: 36px"> <u>Assignment Creation</u> </h2>
+
+<table  class="create" style="width:98%; margin-left:8%">
+	<tr>
+	
+
+	    <td style="width: 126px;  height:45px; padding-right:5px">FACULTY</td>
+		<td style="width:190px; height:45px">
+		<input name="faculty_name" id="faculty_name" type="text" class="dis" readonly="1" onMouseOver="this.title = this.value"  style="width: 130px; padding-right:5px" class="auto-style6" value='<?php echo $_SESSION["user_id"] ; ?>'/>
+			</td>
+		
+		<td style="width: auto;  height:45px padding-right:5px">ASSIGNMENT ID </td>
+	<td style=" width:auto; height:45px; margin-top:-10%">	
+		<input name="assignment_id" id="assignment_id"  class="dis" readonly="1"  onMouseOver="this.title = this.value"  style="width:130px; padding-right:5px" value='<?php echo $_SESSION["assignment_id_s"] ; ?>'  /></td>
+		<td style="width: auto; padding-right:5px">SUBJECT</td>
+	<td style="width:230px; height:45px">
+		<span style=" width:auto; height:45px; margin-top:-10%">
+	
+		</span>
+<input name="subject_name" id="subject_name" type="text"  class="dis" readonly="1" value='<?php echo $_SESSION["subject_name_s"] ; ?>' onMouseOver="this.title = this.value" style="width: 130px; padding-right:5px"/>
+	  <span class="auto-style6">	  </span></td>
+	</tr>
+	<tr>
+		<td class="auto-style6" style="width: 126px">SUBMISSION&nbsp;DATE</td>
+	<td style="width: 190px; height:45px">
+		<input name="submission_date" id="submission_date" value='<?php echo $_SESSION["submission_date_s"] ; ?>' type="text"   class="dis" readonly="1"  onMouseOver="this.title = this.value"  style="width: 130px;  padding-right:5px" /></td>
+		<td class="auto-style6">ISSUE DATE</td>
+		<td style="width: auto; height:45px">
+		<input name="issue_date" id="issue_date"  class="dis" value='<?php echo $_SESSION["issue_date_s"] ; ?>' readonly="1"  onMouseOver="this.title = this.value" type="text"  style="width: 130px" /></td>
+		<td class="auto-style6">ASSIGNMENT TYPE</td>
+		<td style="width: auto; height:45px">
+		<input name="assignment_type" id="assignment_type" type="text"  class="dis" value='<?php echo $_SESSION["assignment_type_s"] ; ?>' readonly="1"  onMouseOver="this.title = this.value"  style="width:130px; padding-right:5px" /></td>
+	</tr>
+	<tr>
+		<td style="width:126px">ASSIGNMENT TOPIC </td>
+		<td style="width:190px; height:45px">
+		<input name="assignment_topic" id="assignment_topic" class='dis' value='<?php echo $_SESSION["assignment_topic_s"] ; ?>' type="text"  onMouseOver="this.title = this.value" style="width: 130px" class="auto-style6"/><span class="auto-style6">
+		</span>
+		
+		<td class="auto-style6">MAXIMUM MARKS </td>
+		<td style="width: 168px">
+		<input name="max_marks" id="max_marks" class="dis" type="text" value='<?php echo $_SESSION["max_marks"] ; ?>' onMouseOver="this.title = this.value" style="width: 130px" class="auto-style6"/></td>
+		<td class="auto-style6" >PASSING MARKS</td>
+		<td>
+		<input name="passing_marks" id="passing_marks" class="dis" type="text" value='<?php echo $_SESSION["passing_marks"] ; ?>'   onMouseOver="this.title = this.value" style="width: 130px;  padding-right:5px" class="auto-style6"/></td>
+	</tr>
+</table>
+<br />
+
+<div id="box">
+
+			<section>
+				<div class="tabs tabs-style-linemove">
+					<nav>
+						<ul>
+							<?php if($_SESSION["assignment_type_s"]=='D')
+						{
+							echo '<li><a href="#section-linemove-1" ><span>Descriptive</span></a></li>';}?> 
+                          <?php if($_SESSION["assignment_type_s"]=='M')
+                          {
+							echo'<li><a href="#section-linemove-2" ><span>M.C.Q</span></a></li>';}?>
+						</ul>
+					</nav>
+					<div class="content-wrap">
+
+
+
+						<?php if($_SESSION["assignment_type_s"]=='D')
+						{
+						echo'<section  id="section-linemove-1">
+						<table class="create" width="80%">
+	<tr>
+		<td style="width: 67px">Q. 
+		<input id="question_no" class="dis" name="Text1" style="width: 50px; " onMouseOver="this.title = this.value" type="text" value="1" disabled /></td>
+		<td style="width:70%; ">
+		<!--<textarea id="question_name" name="TextArea1"  style="width:100%; height:120px;margin-left:-30%"></textarea></td>-->
+		<textarea  id="question_name" style="width:100%; height:120px;margin-left:-30%" ></textarea></td>
+		
+	</tr>
+	</table>
+			<!--<a class="but" href="#customize"><button class="sbutton" style=" width:82px; margin-top:-50px; position:absolute; margin-left:15%">Customize</button></a>-->
+	
+<!--
+<div class="bigblock">
+<div class="main">
+<form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+<div id="image_preview"><img id="previewing" src="noimage.png" /></div>
+
+<div id="selectImage">
+
+<input type="file" name="file" id="file" required />
+<input type="submit" value="Upload" formaction="ajax_php_file.php" target="_blank"  class="submit" />
+</div>
+</form>
+</div>
+</div>
+<h4 id="loading" ><img src="loading_circle.gif"/>&nbsp;&nbsp;Uploading...</h4>
+<div id="message"></div>
+		<br />
+		
+		-->
+		<br/><br/>
+	<table class="create" align="center" style="margin-top:-35px; margin-left:61%">
+		<tr>
+		<td style="width:100px; text-align:right; margin-top:-50px">M.M&emsp;<input id="max_marks2" class="dis" name="max_marks2" style="width:30px" type="text" /></p>
+	           		</td></tr>
+	  </table> 
+		
+	
+	<table class="create" style="border: ridge; border-color: #7F7F7F; border-width: medium; margin-top:-40px; margin-left:10%" width="200px">
+		<tr>
+		<td>
+		<input class="sbutton" id="subdec"  style="width: 80px" name="Button4" type="button" value="&lt; Part "  /></td>
+		<td>
+		<input class="sbutton" id="subadd"  style="width: 80px"  type="button" value="Part &gt;"  /></td>
+		</tr>
+		</table>
+		
+<table class="create" style="border: ridge; border-color: #7F7F7F; border-width: medium; margin-top:-48px; margin-left: 38%" width="200px">
+		<tr>
+		
+		<td  style="width: 40px">
+		<input class="sbutton" id="prebtn"  style="width: 90px" name="next" type="button" value="&lt;&lt; Previous"   /></td>
+		<td >
+		<input class="sbutton" id="nextbtn"  style="width: 80px" name="next0" type="button" value="Next &gt;&gt;"   /></td>
+		</tr>
+		</table>
+		
+
+		<table class="create" style="border: ridge; border-color: #7F7F7F; border-width: medium; margin-top:15px; margin-left: 24%" width="200px">
+	<tr>
+	<td>
+		<input class="sbutton" id="savebtn"  style="width: 80px"  type="button" value="Save"  /></td>
+		<td >
+		<a href="assignmentpreview.php"><input class="sbutton"  style="width:65px" name="next0" type="button" value="Preview" /></td></a>
+		<td >
+		<input class="sbutton"  style="width: 80px"  value="Submit" /></td>
+	
+	</tr>
+</table>
+		
+		<br/>
+		
+		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+						</section>';
+					}
+						?>
+						
+						<?php if($_SESSION["assignment_type_s"]=='M')
+						{
+							echo'<section id="section-linemove-2">
+						<table class="create" width="80%">
+	<tr>
+		<td style="width: 67px">Q. 
+		<input name="ques_no" id="ques_no" disabled style="width: 30px; " type="text" /></td>
+		<td style="width:78%; ">
+		<textarea id="ques_text" style="width:100%; height:120px;margin-left:-15%"></textarea></td>
+		
+	</tr>
+	</table>
+	
+	
+<!--	
+<div class="bigblock">
+<div class="main">
+<form id="uploadimage1" action="" method="post" enctype="multipart/form-data">
+<div id="image_preview1"><img id="previewing1" src="noimage.png" /></div>
+
+<div id="selectImage">
+
+<input type="file" name="file" id="file1" required />
+<input type="submit" value="Upload" class="submit" formaction="ajax_php_file.php" />
+</div>
+</form>
+</div>
+</div>
+<h4 id="loading" ><img src="loading_circle.gif"/>&nbsp;&nbsp;Uploading...</h4>
+<div id="message1"></div>
+		<br />
+	-->
+	<br/><br/>
+	<table align="center" style="margin-top:-30px; margin-left:61%">
+		<tr>
+		<td style="width:100px; text-align:right; margin-top:-50px">M.M &nbsp <input name="max_marks1" id="max_marks1" style="width:30px" type="text" /></p>
+	           		</td></tr>
+	  </table> 
+		<table width="15%" style=" margin-top:-2%; padding-right:1%">
+		<tr> <td style="font-size:15px" id="is_true_false_container">IS TRUE/FALSE?&nbsp;
+	  <input id="is_true_false" type="checkbox" value=5 onclick="true_false(this);" onchange="myFunction(this);" /></td>
+	  <input name="testing_a" id="is_true_false1" type="text" hidden style="width:75%" />
+	  </tr>
+	  
+	  </table>
+	  
+	  <input type="hidden" name="srno1" id="path" value="<?php echo $_SESSION["target_path"]?>">
+	  
+	  
+	  <br />
+		<table id="tablemcq" class="auto-style1 createmcq" style="width: 60%; margin-left:14%; padding-left:5%; margin-top:-6%">
+	<tr>
+		<td id="checkbox_a_container">
+		A<input name="checkbox_a" id="checkbox_a" class="checkbox_a" type="checkbox" value=1 onchange="myFunction(this);" /><input name="option_a" id="option_a" type="text" style="width:75%" /></td>
+		<input name="testing_a" id="checkbox_a1" type="text" hidden style="width:75%" />
+		<td id="checkbox_b_container">B<input name="checkbox_b" id="checkbox_b" type="checkbox" class="checkbox_b" value=2 onchange="myFunction(this);" /><input name="option_b" id="option_b" type="text" style="width:75%" /></td>
+		<input name="testing_b" id="checkbox_b1" type="text" hidden style="width:75%" />
+	</tr>
+	<tr>
+		<td id="checkbox_c_container">
+		C<input name="checkbox_c" id="checkbox_c" type="checkbox" class="checkbox_c" value=3 onchange="myFunction(this);" /><input name="option_c" id="option_c" type="text" style="width:75%"  /></td>
+		<input name="testing_c" id="checkbox_c1" type="text" hidden style="width:75%" />
+		<td id="checkbox_d_container">D<input name="checkbox_d" id="checkbox_d" type="checkbox" class="checkbox_d" value=4 onchange="myFunction(this);" /><input name="option_d" id="option_d" type="text" style="width:75%"  /></td>
+		<input name="testing_d" id="checkbox_d1" type="text" hidden style="width:75%" />
+	</tr>
+</table>
+
+<table id="tabletrue" class="auto-style1 createmcq" style="width: 70%; margin-left:17%; padding-left:5%;margin-top:-6%; display:none;">
+	<tr>
+		<td id="is_true_container">
+		<input name="radiobtn" type="radio" id="true" /> TRUE</td>
+		<td id="is_false_container"><input name="radiobtn" type="radio" id="false" />FALSE</td>
+	</tr>
+</table>
+
+		<table class="create" style="border: ridge; border-color: #7F7F7F; border-width: medium; margin-top:30px; margin-left:10%" width="200px">
+		<tr>
+	
+		<td>
+		<input class="sbutton"  style="width: 85px" name="next" type="button" id="prev" value="&lt;&lt; Previous" /></td>
+		<td>
+		<input class="sbutton"  style="width: 60px" name="next0" type="button" id="next" value="Next &gt;&gt;" /></td>
+		</tr>
+		</table>
+		
+		
+		<table class="create" style="border: ridge; border-color: #7F7F7F; border-width: medium; margin-top:-46px; margin-left:30%" width="200px">
+		<tr>
+		<td >
+		<input class="sbutton"  style="width: 125px" name="next0" type="button" id="add_ques" value="Add Question (+)"/></td> 
+		<td >
+		<input class="sbutton"  style="width: 145px" name="next0" type="button" id="rem_ques" value="Remove Question (-)" /></td>
+         </tr>
+		 </table>
+		
+		
+		<table>
+		<table class="create" style="border: ridge; border-color: #7F7F7F; border-width: medium; margin-top:-46px; margin-left:57%" width="200px">
+		<tr>
+		<td >
+		<a href="assignmentpreview1.php"><input class="sbutton"  style="width:65px" name="next0" type="button" value="Preview" /></td></a>
+		<td>
+		<input class="sbutton" name="Submit1" style="width: 60px;" type="submit" value="Submit" /></td>
+		
+		</tr>
+</table>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		
+		<!--
+	
+		<table class="create" align="center" style="width: 30%">
+	<tr>
+
+		<td >
+		<input class="sbutton"  style="width: 85px" name="next" type="button" id="prev" value="&lt;&lt; Previous" /></td>
+		<td >
+		<input class="sbutton"  style="width: 60px" name="next0" type="button" id="next" value="Next &gt;&gt;" /></td>
+		<td >
+		<input class="sbutton"  style="width: 125px" name="next0" type="button" id="add_ques" value="Add Question (+)" /></td>
+		<td >
+		<input class="sbutton"  style="width: 145px" name="next0" type="button" id="rem_ques" value="Remove Question (-)" /></td>
+         <td>
+		<input class="sbutton" name="Reset1" style="width: 60px" type="reset" value="Reset" /></td>
+		
+		<td >
+		<input class="sbutton" name="Submit1" style="width: 60px" type="submit" id="mcq_submit" value="Submit" /></td>
+		</tr>
+</table>
+		
+	-->	
+
+						
+						
+						
+						
+						
+						</section>';
+					}
+					?>
+					
+					</div><!-- /content -->
+				</div><!-- /tabs -->
+			</section>
+			
+			<!-- Related demos -->
+			
+</div><!-- /container -->
+		</div>
+		<script src="../../js/cbpFWTabs.js"></script>
+		<script>
+			(function() {
+
+				[].slice.call( document.querySelectorAll( '.tabs' ) ).forEach( function( el ) {
+					new CBPFWTabs( el );
+				});
+
+			})();
+		</script>
+
+			
+			
+			<br />
+			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /
+			
+	</form>
+
+
+</body>
+
+</html>
